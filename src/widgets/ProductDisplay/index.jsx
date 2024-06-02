@@ -2,6 +2,9 @@ import { Center, Environment } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import Backdrop from '@/entities/Backdrop'
 import Shirt from '@/entities/Shirt'
+import Socks from '@/entities/Socks'
+import Underpants from '@/entities/Underpants'
+import Pants from '@/entities/Pants'
 import ModelViewControl from '@/features/ModelViewControl'
 
 const ProductDisplay = () => {

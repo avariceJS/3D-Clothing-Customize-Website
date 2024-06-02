@@ -1,7 +1,7 @@
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
 import React from 'react'
 import { useSnapshot } from 'valtio'
-import state from './model/store'
+import state from '../Shirt/model/store'
 
 const Underpants = () => {
 	const snap = useSnapshot(state)
