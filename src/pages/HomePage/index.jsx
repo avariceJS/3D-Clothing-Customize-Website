@@ -13,6 +13,10 @@ import {
 const HomePage = () => {
 	const snap = useSnapshot(state)
 
+    const handleEditClick = () => {
+        state.intro = false;
+    };
+
 	return (
 		<AnimatePresence>
 			{snap.intro && (
@@ -33,21 +37,25 @@ const HomePage = () => {
 						</motion.div>
 						<motion.div
 							{...headContentAnimation}
-							className='flex flex-col gap-5'
+							className='flex flex-col gap-20'
 						>
-							<p className='max-w-md font-normal text-gray-600 text-base'>
+							
+							<p className='max-w-md font-medium text-gray-600 text-base'>
 								Создайте свою уникальную и эксклюзивную рубашку с помощью нашего
 								нового инструмента 3D-индивидуализации.{' '}
 								<strong>Дайте волю своему воображению</strong> и определи свой
 								собственный стиль.
 							</p>
-
+							
 							<CustomButton
 								type='filled'
 								title='Редактировать'
-								handleClick={() => (state.intro = false)}
+								handleClick={handleEditClick}
 								customStyles='w-fit px-20 py-6 font-bold text-lg'
-							/>
+								image='/src/public/image/rightArrow.png'
+								imagePosition='right'
+							/> 
+							
 						</motion.div>
 					</motion.div>
 				</motion.section>

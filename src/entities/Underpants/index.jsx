@@ -5,9 +5,7 @@ import state from '../Shirt/model/store'
 
 const Underpants = () => {
 	const snap = useSnapshot(state)
-	console.log(snap.color)
 	const { nodes, materials } = useGLTF('/src/public/3dModel/boxer.glb')
-console.log(nodes)
 	const logoTexture = useTexture(snap.logoDecal)
 	logoTexture.anisotropy = 16
 
@@ -30,9 +28,9 @@ console.log(nodes)
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
 					<Decal
-						position={[0, 0, 0]}
+						position={[-0.005, 0, 1.8]}
 						rotation={[0, 0, 0]}
-						scale={1}
+						scale={2.5}
 						map={fullTexture}
                         
 					/>
@@ -40,7 +38,7 @@ console.log(nodes)
 
 				{snap.isLogoTexture && (
 					<Decal
-						position={[-1.1, -0.2, 1.8]}
+						position={[-1.1, -0.1, 1.8]}
 						rotation={[0, 0, 0]}
 						scale={1.1}
 						map={logoTexture}

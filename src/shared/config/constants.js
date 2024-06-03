@@ -4,7 +4,27 @@ import {
 	sizeShirts,
 	stylishShirt,
 	swatch,
+	boxerIcons, pantsIcons, socksIcons, shirtIcons
 } from '@/public/index.js'
+
+export const СlothesСhoice = [
+	{
+		name: 'underpants',
+		icon: boxerIcons,
+	},
+	{
+		name: 'pants',
+		icon: pantsIcons,
+	},
+	{
+		name: 'socks',
+		icon: socksIcons,
+	},
+	{
+		name: 'shirt',
+		icon: shirtIcons
+	},
+]
 
 export const EditorTabs = [
 	{

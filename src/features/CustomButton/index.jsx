@@ -1,36 +1,21 @@
 import React from 'react'
-import { useSnapshot } from 'valtio'
 
-import state from '@/entities/Shirt/model/store'
-import { getContrastingColor } from '@/shared/libs/helpers'
+const CustomButton = ({ title, customStyles, handleClick, image, imagePosition }) => {
 
-const CustomButton = ({ type, title, customStyles, handleClick }) => {
-	const snap = useSnapshot(state)
+    const buttonClasses = `flex text-[#201f21] bg-[#b247f5] items-center px-[24px] py-[11px] flex-1 rounded-md  ${customStyles}`
+    const textClasses = imagePosition === 'right' ? 'mr-2.5' : 'ml-2.5'
+    const imageClasses = imagePosition === 'right' ? 'ml-2.5' : 'mr-2.5'
 
-	const generateStyle = type => {
-		if (type === 'filled') {
-			return {
-				backgroundColor: snap.color,
-				color: getContrastingColor(snap.color),
-			}
-		} else if (type === 'outline') {
-			return {
-				borderWidth: '1px',
-				borderColor: snap.color,
-				color: snap.color,
-			}
-		}
-	}
-
-	return (
-		<button
-			className={`px-2 py-1.5 flex-1 rounded-md ${customStyles}`}
-			style={generateStyle(type)}
-			onClick={handleClick}
-		>
-			{title}
-		</button>
-	)
+    return (
+        <button
+            className={buttonClasses}
+            onClick={handleClick}
+        >
+            {image && imagePosition === 'left' && <img width={45} src={image} alt="Button Image" className={imageClasses} />}
+            <span className={textClasses}>{title}</span>
+            {image && imagePosition === 'right' && <img width={45} src={image} alt="Button Image" className={imageClasses} />}
+        </button>
+    )
 }
 
 export default CustomButton

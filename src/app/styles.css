@@ -24,11 +24,11 @@ html {
 }
 
 .home-content {
-	@apply flex-1 xl:justify-center justify-start flex flex-col gap-16;
+	@apply flex-1 xl:justify-center justify-start flex flex-col gap-20;
 }
 
 .head-text {
-	@apply xl:text-[8rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black text-black;
+	@apply xl:text-[7rem] xl:leading-[8rem] leading-[7rem] font-black text-black;
 }
 
 .download-btn {
@@ -41,6 +41,10 @@ html {
 
 .filtertabs-container {
 	@apply absolute z-10 bottom-5 right-0 left-0 w-full flex justify-center items-center flex-wrap gap-4;
+}
+
+.clothestabs-container {
+	@apply absolute z-10 bottom-[50%] left-[95%] w-full flex flex-col flex-wrap gap-4;
 }
 
 .filepicker-container {
@@ -79,6 +83,3 @@ input[type='file'] {
 	border-radius: 6px !important;
 }
 
-.sketch-picker > div:nth-child(3) {
-	display: none !important;
-}

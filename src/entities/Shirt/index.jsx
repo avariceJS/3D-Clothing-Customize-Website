@@ -5,9 +5,7 @@ import state from './model/store'
 
 const Shirt = () => {
 	const snap = useSnapshot(state)
-	console.log(snap.color)
 	const { nodes, materials } = useGLTF('/src/public/3dModel/shirt.glb')
-console.log(nodes)
 	const logoTexture = useTexture(snap.logoDecal)
 	logoTexture.anisotropy = 16
 
