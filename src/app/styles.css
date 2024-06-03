@@ -48,15 +48,30 @@ html {
 }
 
 .filepicker-container {
-	@apply absolute left-0 top-24 glassmorphism p-3 w-96 h-[220px] flex flex-col rounded-md;
+	@apply absolute left-0 top-24 glassmorphism p-3 h-[220px] flex flex-col rounded-md;
+	transition: width 0.3s ease;
 }
 
 .filepicker-label {
-	@apply border border-gray-300 py-1.5 px-2 rounded-md shadow-sm text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer w-fit;
+	@apply border flex items-center border-gray-400 py-1.5 px-2 rounded-md text-[15px] cursor-pointer w-fit;
 }
 
 .tab-btn {
 	@apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
+}
+
+.editortabs-container {
+	position: relative;
+}
+
+.resizer {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 10px; /* Ширина ресайзера */
+	height: 100%;
+	cursor: ew-resize; /* Курсор изменения ширины */
+	background-color: transparent; /* Можно добавить цвет для визуализации */
 }
 
 .glassmorphism {
@@ -82,4 +97,3 @@ input[type='file'] {
 	border: 1px solid rgba(255, 255, 255, 0.18) !important;
 	border-radius: 6px !important;
 }
-

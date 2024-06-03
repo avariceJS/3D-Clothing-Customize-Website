@@ -27,9 +27,9 @@ const Socks = () => {
                 <meshStandardMaterial color={snap.color} />
                 {snap.isFullTexture && (
                     <Decal
-                        position={[0.01, 0.01, 0.01]}
+                        position={[0.134, 0.098, 0]}
                         rotation={[0, 0, 0]}
-                        scale={1}
+                        scale={0.1}
                         map={fullTexture}
                     />
                 )}
@@ -56,9 +56,9 @@ const Socks = () => {
                 <meshStandardMaterial color={snap.color} />
                 {snap.isFullTexture && (
                     <Decal
-                        position={[0, 0, 0]}
+                        position={[-0.021, 0.098, 0]}
                         rotation={[0, 0, 0]}
-                        scale={1}
+                        scale={0.1}
                         map={fullTexture}
                     />
                 )}

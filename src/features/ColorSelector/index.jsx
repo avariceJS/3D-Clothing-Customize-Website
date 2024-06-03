@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio'
 
 import state from '@/entities/Shirt/model/store'
 
-const ColorSelector = () => { 
+const ColorSelector = () => {
 	const snap = useSnapshot(state)
 
 	return (

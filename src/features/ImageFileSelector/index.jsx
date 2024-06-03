@@ -1,10 +1,11 @@
 import React from 'react'
-
 import CustomButton from '@/features/CustomButton'
 
-const ImageFileSelector = ({ file, setFile, readFile }) => { 
+const ImageFileSelector = ({ file, setFile, readFile, tabWidth }) => {
+	const modalWidth = tabWidth * 0.9
+
 	return (
-		<div className='filepicker-container'>
+		<div className='filepicker-container' style={{ width: `${modalWidth}px` }}>
 			<div className='flex-1 flex flex-col'>
 				<input
 					id='file-upload'
@@ -14,9 +15,13 @@ const ImageFileSelector = ({ file, setFile, readFile }) => {
 				/>
 				<label htmlFor='file-upload' className='filepicker-label'>
 					Загрузить
+					<img
+						src='/src/public/image/download.png'
+						alt='logo'
+						className='w-4 h-4 ml-[3px]'
+					/>
 				</label>
-
-				<p className='mt-2 text-gray-500 text-xs truncate'>
+				<p className='mt-2 text-gray-700 text-[13px] truncate'>
 					{file === '' ? 'Файл не выбран' : file.name}
 				</p>
 			</div>
@@ -26,13 +31,13 @@ const ImageFileSelector = ({ file, setFile, readFile }) => {
 					type='outline'
 					title='Логотип'
 					handleClick={() => readFile('logo')}
-					customStyles='text-xs'
+					customStyles='text-base justify-center text-white py-1.5'
 				/>
 				<CustomButton
 					type='filled'
-					title='на весь'
+					title='Принт'
 					handleClick={() => readFile('full')}
-					customStyles='text-xs'
+					customStyles='text-base text-white bg-red-500 justify-center py-1.5'
 				/>
 			</div>
 		</div>

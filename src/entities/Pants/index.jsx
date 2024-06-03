@@ -30,7 +30,7 @@ const Pants = () => {
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
 					<Decal
-						position={[0.03, 0.7, 0.2]}
+						position={[0.099, 0.75, 0.2]}
 						rotation={[0, 0, 0]}
 						scale={0.5}
 						map={fullTexture}

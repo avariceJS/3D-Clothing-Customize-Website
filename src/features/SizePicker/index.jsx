@@ -15,46 +15,40 @@ const sizes = [
 	{ name: '7XL', range: '76-78' },
 ]
 
-const SizePicker = ({ file, setFile, readFile }) => {
+const SizePicker = ({ readFile, tabWidth }) => {
 	const [activeButton, setActiveButton] = useState(null)
-	const [hoveredButton, setHoveredButton] = useState(null)
 
 	const handleButtonClick = name => {
-		setActiveButton(name)
+		setActiveButton(name === activeButton ? null : name)
 		readFile(name)
 	}
 
-	const handleButtonHover = name => {
-		setHoveredButton(name)
-	}
-
-	const rows = []
-	for (let i = 0; i < sizes.length; i += 4) {
-		rows.push(sizes.slice(i, i + 4))
-	}
+	const modalWidth = tabWidth * 0.9
 
 	return (
-		<div className='filepicker-container'>
-			{rows.map((row, index) => (
-				<div key={index} className='flex justify-between mb-4 h-16 w-96'>
-					{row.map((size, idx) => (
+		<div className='filepicker-container' style={{ width: `${modalWidth}px` }}>
+			<div className='grid grid-cols-4 gap-4'>
+				{sizes.map((size, index) => (
+					<div key={index} className='flex justify-between w-24 h-14'>
 						<button
-							key={idx}
 							className={`
-                text-xs mr-7 h-full w-20 flex items-center justify-center border border-gray-300 rounded
-                ${hoveredButton === size.name ? ' border-blue-600' : ''} ${activeButton === size.name
-									? 'border-red-400 text-red-500'
-									: ''} 
-              `}
+                                text-xs w-full h-full flex items-center mr-5 justify-center border border-gray-300 rounded
+                                ${
+																	activeButton === size.name
+																		? 'border-red-400 text-red-500'
+																		: 'hover:border-blue-600'
+																}
+                            `}
 							onClick={() => handleButtonClick(size.name)}
-							onMouseEnter={() => handleButtonHover(size.name)}
-							onMouseLeave={() => setHoveredButton(null)}
 						>
-							{size.name} ({size.range})
+							<div className='flex flex-col items-center justify-center'>
+								<span className='text-base'>{size.name}</span>
+								<sub className='text-xs'>({size.range})</sub>
+							</div>
 						</button>
-					))}
-				</div>
-			))}
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }
