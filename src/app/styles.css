@@ -23,7 +23,7 @@ html {
 }
 
 .app {
-	@apply relative w-full h-screen overflow-hidden;
+	@apply relative w-full h-screen overflow-hidden bg-slate-200;
 }
 
 .home {
@@ -40,10 +40,6 @@ html {
 
 .paragraph-text {
 	@apply lg:text-[1rem] text-[0.96rem] font-medium text-gray-500 max-w-md;
-}
-
-.download-btn {
-	@apply w-14 h-14 flex justify-center items-center rounded-full glassmorphism cursor-pointer outline-none;
 }
 
 .editortabs-container {
@@ -79,10 +75,10 @@ html {
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 10px; /* Ширина ресайзера */
+	width: 10px;
 	height: 100%;
-	cursor: ew-resize; /* Курсор изменения ширины */
-	background-color: transparent; /* Можно добавить цвет для визуализации */
+	cursor: ew-resize;
+	background-color: transparent;
 }
 
 .glassmorphism {
@@ -97,14 +93,4 @@ input[type='file'] {
 	z-index: -1;
 	position: absolute;
 	opacity: 0;
-}
-
-.sketch-picker {
-	width: 170px !important;
-	background: rgba(255, 255, 255, 0.25) !important;
-	box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07) !important;
-	backdrop-filter: blur(4px) !important;
-	-webkit-backdrop-filter: blur(4px) !important;
-	border: 1px solid rgba(255, 255, 255, 0.18) !important;
-	border-radius: 6px !important;
 }
