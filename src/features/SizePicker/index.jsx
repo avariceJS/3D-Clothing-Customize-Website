@@ -1,5 +1,7 @@
+// Base
 import React, { useState } from 'react'
 
+// Array of size options
 const sizes = [
 	{ name: 'XXS', range: '40-42' },
 	{ name: 'XS', range: '44-46' },
@@ -18,18 +20,27 @@ const sizes = [
 const SizePicker = ({ readFile, tabWidth }) => {
 	const [activeButton, setActiveButton] = useState(null)
 
+	// Handle button click to select size
 	const handleButtonClick = name => {
 		setActiveButton(name === activeButton ? null : name)
 		readFile(name)
 	}
 
+	// Calculate modal width based on tab width
 	const modalWidth = tabWidth * 0.9
+
+	// Calculate button width based on tab width
+	const buttonWidth = tabWidth * 0.25
 
 	return (
 		<div className='filepicker-container' style={{ width: `${modalWidth}px` }}>
 			<div className='grid grid-cols-4 gap-4'>
 				{sizes.map((size, index) => (
-					<div key={index} className='flex justify-between w-24 h-14'>
+					<div
+						key={index}
+						className='flex justify-between h-14'
+						style={{ width: tabWidth > 373 ? '96px' : `${buttonWidth}px` }}
+					>
 						<button
 							className={`
                                 text-xs w-full h-full flex items-center mr-5 justify-center border border-gray-300 rounded

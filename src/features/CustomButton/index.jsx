@@ -1,3 +1,4 @@
+// Base
 import React from 'react'
 
 const CustomButton = ({
@@ -7,8 +8,11 @@ const CustomButton = ({
 	image,
 	imagePosition,
 }) => {
+
+	// Define button classes with custom styles
 	const buttonClasses = `flex text-[#201f21] bg-[#b247f5] items-center px-[24px] py-[11px] flex-1 rounded-md  ${customStyles}`
-	const textClasses = imagePosition === 'right' ? 'mr-2.5' : 'ml-2.5'
+
+	// Define image classes based on the image position
 	const imageClasses = imagePosition === 'right' ? 'ml-2.5' : 'mr-2.5'
 
 	return (
@@ -21,7 +25,7 @@ const CustomButton = ({
 					className={imageClasses}
 				/>
 			)}
-			<span className={textClasses}>{title}</span>
+			<span>{title}</span>
 			{image && imagePosition === 'right' && (
 				<img
 					width={45}

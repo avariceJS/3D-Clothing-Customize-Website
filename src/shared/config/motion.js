@@ -1,5 +1,7 @@
+// Default transition configuration
 export const transition = { type: 'spring', duration: 0.8 }
 
+// Function to generate slide animations based on direction
 export const slideAnimation = direction => {
 	return {
 		initial: {
@@ -22,6 +24,7 @@ export const slideAnimation = direction => {
 	}
 }
 
+// Fade animation configuration
 export const fadeAnimation = {
 	initial: {
 		opacity: 0,
@@ -37,6 +40,7 @@ export const fadeAnimation = {
 	},
 }
 
+// Animation configuration for heading text
 export const headTextAnimation = {
 	initial: { x: 100, opacity: 0 },
 	animate: { x: 0, opacity: 1 },
@@ -49,6 +53,7 @@ export const headTextAnimation = {
 	},
 }
 
+// Animation configuration for heading content
 export const headContentAnimation = {
 	initial: { y: 100, opacity: 0 },
 	animate: { y: 0, opacity: 1 },
@@ -63,6 +68,7 @@ export const headContentAnimation = {
 	},
 }
 
+// Animation configuration for heading container
 export const headContainerAnimation = {
 	initial: { x: -100, opacity: 0, transition: { ...transition, delay: 0.5 } },
 	animate: { x: 0, opacity: 1, transition: { ...transition, delay: 0 } },

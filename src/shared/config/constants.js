@@ -1,13 +1,18 @@
+// Icons
 import {
 	fileIcon,
 	logoShirt,
 	sizeShirts,
 	stylishShirt,
 	swatch,
-	boxerIcons, pantsIcons, socksIcons, shirtIcons
+	boxerIcons,
+	pantsIcons,
+	socksIcons,
+	shirtIcons,
 } from '@/public/index.js'
 
-export const СlothesСhoice = [
+// Array representing different types of clothing and their icons
+export const ClothesChoice = [
 	{
 		name: 'underpants',
 		icon: boxerIcons,
@@ -22,10 +27,11 @@ export const СlothesСhoice = [
 	},
 	{
 		name: 'shirt',
-		icon: shirtIcons
+		icon: shirtIcons,
 	},
 ]
 
+// Array representing editor tabs and their icons
 export const EditorTabs = [
 	{
 		name: 'colorpicker',
@@ -41,6 +47,7 @@ export const EditorTabs = [
 	},
 ]
 
+// Array representing filter tabs and their icons
 export const FilterTabs = [
 	{
 		name: 'logoShirt',
@@ -52,6 +59,7 @@ export const FilterTabs = [
 	},
 ]
 
+// Object representing decal types, their associated state properties, and filter tabs
 export const DecalTypes = {
 	logo: {
 		stateProperty: 'logoDecal',

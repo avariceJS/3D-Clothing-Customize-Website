@@ -1,22 +1,35 @@
-import React, { useState, useEffect } from 'react'
+// Base
+import React, { useState } from 'react'
+
+// Animations
 import { AnimatePresence, motion } from 'framer-motion'
+
+// State
 import { useSnapshot } from 'valtio'
 
-import state from '@/entities/Shirt/model/store'
-import ProductDisplay from '@/widgets/ProductDisplay'
+// Features
 import ColorSelector from '@/features/ColorSelector'
 import CustomButton from '@/features/CustomButton'
 import ImageFileSelector from '@/features/ImageFileSelector'
 import SizePicker from '@/features/SizePicker'
 import Tab from '@/features/Tab'
+
+// Shared -> Config; Libs
+import state from '@/shared/config/store'
+import { fadeAnimation, slideAnimation } from '@/shared/config/motion'
+import { reader } from '@/shared/libs/helpers'
 import {
 	DecalTypes,
 	EditorTabs,
 	FilterTabs,
-	СlothesСhoice,
+	ClothesChoice,
 } from '@/shared/config/constants'
-import { fadeAnimation, slideAnimation } from '@/shared/config/motion'
-import { reader } from '@/shared/libs/helpers'
+
+// Widgets
+import ProductDisplay from '@/widgets/ProductDisplay'
+
+// Icons
+import { leftArrow } from '@/public'
 
 const Customizer = () => {
 	const snap = useSnapshot(state)
@@ -30,6 +43,7 @@ const Customizer = () => {
 		stylishShirt: false,
 	})
 
+	// Handle editor tab click
 	const handleClickEditorTab = tabName => {
 		if (activeEditorTab === tabName) {
 			setActiveEditorTab('')
@@ -38,25 +52,33 @@ const Customizer = () => {
 		}
 	}
 
+	// Handle mouse movement to resize the tab width
 	const handleMouseMove = e => {
 		const newWidth = e.clientX
-		if (newWidth >= 200) {
+		if (newWidth >= 280 && newWidth <= 640) {
 			setTabWidth(newWidth)
-		} else {
-			setTabWidth(200)
+		} else if (newWidth < 280) {
+			setTabWidth(280)
+		} else if (newWidth > 640) {
+			setTabWidth(640)
 		}
 	}
 
+	// Remove event listeners and allow text selection again
 	const handleMouseUp = () => {
+		document.body.classList.remove('no-select')
 		window.removeEventListener('mousemove', handleMouseMove)
 		window.removeEventListener('mouseup', handleMouseUp)
 	}
 
+	// Add event listeners and prevent text selection
 	const handleMouseDown = () => {
+		document.body.classList.add('no-select')
 		window.addEventListener('mousemove', handleMouseMove)
 		window.addEventListener('mouseup', handleMouseUp)
 	}
 
+	// Generate content based on the active editor tab
 	const generateTabContent = () => {
 		switch (activeEditorTab) {
 			case 'colorpicker':
@@ -85,6 +107,7 @@ const Customizer = () => {
 		}
 	}
 
+	// Handle form submission to generate an image
 	const handleSubmit = async type => {
 		if (!prompt) return alert('Please enter a prompt')
 
@@ -112,6 +135,7 @@ const Customizer = () => {
 		}
 	}
 
+	// Handle decal application
 	const handleDecals = (type, result) => {
 		const decalType = DecalTypes[type]
 
@@ -122,6 +146,7 @@ const Customizer = () => {
 		}
 	}
 
+	// Handle active filter tab toggle
 	const handleActiveFilterTab = tabName => {
 		switch (tabName) {
 			case 'logoShirt':
@@ -144,6 +169,7 @@ const Customizer = () => {
 		})
 	}
 
+	// Handle file reading
 	const readFile = type => {
 		reader(file).then(result => {
 			handleDecals(type, result)
@@ -151,6 +177,7 @@ const Customizer = () => {
 		})
 	}
 
+	// Handle clothing choice
 	const handleClothingChoice = clothing => {
 		localStorage.setItem('currentClothing', clothing)
 		state.currentClothing = clothing
@@ -167,7 +194,7 @@ const Customizer = () => {
 						style={{ width: `${tabWidth}px` }}
 						{...slideAnimation('left')}
 					>
-						<div className='min-h-screen bg-gray-100 relative'>
+						<div className='min-h-screen bg-gray-500 relative'>
 							<div
 								className='editortabs-container'
 								style={{ width: `${tabWidth}px` }}
@@ -181,7 +208,7 @@ const Customizer = () => {
 								))}
 								{generateTabContent()}
 							</div>
-							{/* Элемент-ресайзер */}
+							{/* Resizer element */}
 							<div className='resizer' onMouseDown={handleMouseDown}></div>
 						</div>
 					</motion.div>
@@ -191,7 +218,7 @@ const Customizer = () => {
 						{...fadeAnimation}
 					>
 						<CustomButton
-							image='/src/public/image/leftArrow.png'
+							image={leftArrow}
 							type='filled'
 							title='Назад'
 							imagePosition='left'
@@ -219,7 +246,7 @@ const Customizer = () => {
 						className='clothestabs-container'
 						{...slideAnimation('up')}
 					>
-						{СlothesСhoice.map(tab => (
+						{ClothesChoice.map(tab => (
 							<Tab
 								key={tab.name}
 								tab={tab}

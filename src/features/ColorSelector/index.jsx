@@ -1,8 +1,12 @@
+// Base
 import React from 'react'
 import { SketchPicker } from 'react-color'
+
+// State
 import { useSnapshot } from 'valtio'
 
-import state from '@/entities/Shirt/model/store'
+// Shared -> Config
+import state from '@/shared/config/store'
 
 const ColorSelector = () => {
 	const snap = useSnapshot(state)

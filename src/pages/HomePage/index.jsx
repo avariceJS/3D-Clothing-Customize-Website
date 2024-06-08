@@ -1,8 +1,18 @@
+// Animations
 import { AnimatePresence, motion } from 'framer-motion'
+
+// State
 import { useSnapshot } from 'valtio'
 
-import state from '@/entities/Shirt/model/store'
+// Features -> Button
 import CustomButton from '@/features/CustomButton'
+
+// Icons
+import { rightArrow } from '@/public'
+import { MarkFormelle } from '@/public'
+
+// Shared -> Config
+import state from '@/shared/config/store'
 import {
 	headContainerAnimation,
 	headContentAnimation,
@@ -10,12 +20,13 @@ import {
 	slideAnimation,
 } from '@/shared/config/motion.js'
 
+// Function for handling edit click
+const handleEditClick = () => {
+	state.intro = false
+}
+
 const HomePage = () => {
 	const snap = useSnapshot(state)
-
-	const handleEditClick = () => {
-		state.intro = false
-	}
 
 	return (
 		<AnimatePresence>
@@ -23,9 +34,9 @@ const HomePage = () => {
 				<motion.section className='home' {...slideAnimation('left')}>
 					<motion.header {...slideAnimation('down')}>
 						<img
-							src='/src/public/image/markformelle.png'
+							src={MarkFormelle}
 							alt='logo'
-							className='w-28 h-28 object-contain'
+							className='w-32 h-32 object-contain'
 						/>
 					</motion.header>
 
@@ -39,7 +50,7 @@ const HomePage = () => {
 							{...headContentAnimation}
 							className='flex flex-col gap-20'
 						>
-							<p className='max-w-md font-medium text-gray-600 text-base'>
+							<p className='paragraph-text'>
 								Создайте свою уникальную и эксклюзивную рубашку с помощью нашего
 								нового инструмента 3D-индивидуализации.{' '}
 								<strong>Дайте волю своему воображению</strong> и определи свой
@@ -51,7 +62,7 @@ const HomePage = () => {
 								title='Редактировать'
 								handleClick={handleEditClick}
 								customStyles='w-fit px-20 py-6 font-bold text-lg'
-								image='/src/public/image/rightArrow.png'
+								image={rightArrow}
 								imagePosition='right'
 							/>
 						</motion.div>

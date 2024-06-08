@@ -15,12 +15,19 @@ html {
 	}
 }
 
+.no-select {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
 .app {
 	@apply relative w-full h-screen overflow-hidden;
 }
 
 .home {
-	@apply w-fit xl:h-[95%] flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-36 sm:p-8 p-6 max-xl:gap-7 absolute z-10;
+	@apply w-fit xl:h-[95%] flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-32 sm:p-8 p-6 max-xl:gap-7 absolute z-10;
 }
 
 .home-content {
@@ -28,7 +35,11 @@ html {
 }
 
 .head-text {
-	@apply xl:text-[7rem] xl:leading-[8rem] leading-[7rem] font-black text-black;
+	@apply lg:text-[7rem] text-[3.7rem] xl:leading-[8rem] leading-[7rem] font-black text-black;
+}
+
+.paragraph-text {
+	@apply lg:text-[1rem] text-[0.96rem] font-medium text-gray-500 max-w-md;
 }
 
 .download-btn {
@@ -36,7 +47,7 @@ html {
 }
 
 .editortabs-container {
-	@apply glassmorphism w-96 border-[2px] rounded-lg flex flex-shrink justify-center items-center ml-1 py-4 gap-4;
+	@apply glassmorphism w-96 border-[2px] rounded-lg flex flex-shrink justify-center items-center py-4 gap-4;
 }
 
 .filtertabs-container {
@@ -48,8 +59,8 @@ html {
 }
 
 .filepicker-container {
-	@apply absolute left-0 top-24 glassmorphism p-3 h-[220px] flex flex-col rounded-md;
-	transition: width 0.3s ease;
+	@apply absolute left-0 top-24 glassmorphism  p-2 pl-1 h-[220px] flex flex-col rounded-md;
+	transition: width 0.2s ease;
 }
 
 .filepicker-label {

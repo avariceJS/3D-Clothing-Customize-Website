@@ -1,11 +1,16 @@
+// Base
 import React from 'react'
+
+// State
 import { useSnapshot } from 'valtio'
 
-import state from '@/entities/Shirt/model/store'
+// Shared -> Config
+import state from '@/shared/config/store'
 
 const Tab = ({ tab, isFilterTab, isActiveTab, handleClick }) => {
 	const snap = useSnapshot(state)
 
+	// Determine the styles for active/inactive states
 	const activeStyles =
 		isFilterTab && isActiveTab
 			? { backgroundColor: snap.color, opacity: 0.5 }

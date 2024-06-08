@@ -1,7 +1,15 @@
+// Base
 import React from 'react'
+
+// Features -> Button
 import CustomButton from '@/features/CustomButton'
 
+// Icons
+import { download } from '@/public'
+
 const ImageFileSelector = ({ file, setFile, readFile, tabWidth }) => {
+	
+	// Calculate modal width based on tab width
 	const modalWidth = tabWidth * 0.9
 
 	return (
@@ -15,11 +23,7 @@ const ImageFileSelector = ({ file, setFile, readFile, tabWidth }) => {
 				/>
 				<label htmlFor='file-upload' className='filepicker-label'>
 					Загрузить
-					<img
-						src='/src/public/image/download.png'
-						alt='logo'
-						className='w-4 h-4 ml-[3px]'
-					/>
+					<img src={download} alt='logo' className='w-4 h-4 ml-[5px]' />
 				</label>
 				<p className='mt-2 text-gray-700 text-[13px] truncate'>
 					{file === '' ? 'Файл не выбран' : file.name}

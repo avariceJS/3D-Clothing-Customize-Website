@@ -1,17 +1,33 @@
-import { Decal, useGLTF, useTexture } from '@react-three/drei'
+// Base
 import React from 'react'
+
+// 3D Graphics
+import { Decal, useGLTF, useTexture } from '@react-three/drei'
+
+// State
 import { useSnapshot } from 'valtio'
-import state from './model/store'
+
+// Shared -> Config
+import state from '@/shared/config/store'
+
+// 3D Model
+import { shirtModel } from '@/public'
 
 const Shirt = () => {
 	const snap = useSnapshot(state)
-	const { nodes, materials } = useGLTF('/src/public/3dModel/shirt.glb')
+
+	// Load the 3D model for the shirt
+	const { nodes, materials } = useGLTF(shirtModel)
+
+	// Load the logo texture
 	const logoTexture = useTexture(snap.logoDecal)
 	logoTexture.anisotropy = 16
 
+	// Load the full texture
 	const fullTexture = useTexture(snap.fullDecal)
 	fullTexture.anisotropy = 16
 
+	// Convert state snapshot to string for key
 	const stateString = JSON.stringify(snap)
 
 	return (
@@ -21,6 +37,7 @@ const Shirt = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
+				position={[0.035, -0.01, 0]}
 			>
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
