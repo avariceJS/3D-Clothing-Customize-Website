@@ -1,5 +1,5 @@
 // Base
-import React from 'react'
+import React, { useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -12,6 +12,10 @@ import state from '@/shared/config/store'
 
 // 3D Model
 import { socksModel } from '@/public'
+
+// Initial coordinates
+const initialLeftSockLogoPosition = { x: 0.1367, y: 0.182 }
+const initialRightSockLogoPosition = { x: -0.021, y: 0.182 }
 
 const Socks = () => {
 	const snap = useSnapshot(state)
@@ -29,6 +33,32 @@ const Socks = () => {
 
 	// Convert state snapshot to string for key
 	const stateString = JSON.stringify(snap)
+
+	const [leftSockLogoPosition, setLeftSockLogoPosition] = useState(
+		initialLeftSockLogoPosition
+	)
+	const [rightSockLogoPosition, setRightSockLogoPosition] = useState(
+		initialRightSockLogoPosition
+	)
+
+	const handlePointerDown = (e, setPosition) => {
+		e.stopPropagation()
+		const handlePointerMove = e => {
+			const { movementX, movementY } = e
+			setPosition(prevPosition => ({
+				x: prevPosition.x + movementX * 0.001,
+				y: prevPosition.y - movementY * 0.001,
+			}))
+		}
+
+		const handlePointerUp = () => {
+			document.removeEventListener('mousemove', handlePointerMove)
+			document.removeEventListener('mouseup', handlePointerUp)
+		}
+
+		document.addEventListener('mousemove', handlePointerMove)
+		document.addEventListener('mouseup', handlePointerUp)
+	}
 
 	return (
 		<group key={stateString}>
@@ -50,15 +80,15 @@ const Socks = () => {
 						map={fullTexture}
 					/>
 				)}
-
 				{snap.isLogoTexture && (
 					<Decal
-						position={[0.1367, 0.182, 0]}
+						position={[leftSockLogoPosition.x, leftSockLogoPosition.y, 0]}
 						rotation={[0, 0, 0]}
 						scale={0.06}
 						map={logoTexture}
 						depthTest={false}
 						depthWrite={true}
+						onPointerDown={e => handlePointerDown(e, setLeftSockLogoPosition)}
 					/>
 				)}
 			</mesh>
@@ -80,15 +110,15 @@ const Socks = () => {
 						map={fullTexture}
 					/>
 				)}
-
 				{snap.isLogoTexture && (
 					<Decal
-						position={[-0.021, 0.182, 0]}
+						position={[rightSockLogoPosition.x, rightSockLogoPosition.y, 0]}
 						rotation={[0, 0, 0]}
 						scale={0.06}
 						map={logoTexture}
 						depthTest={false}
 						depthWrite={true}
+						onPointerDown={e => handlePointerDown(e, setRightSockLogoPosition)}
 					/>
 				)}
 			</mesh>

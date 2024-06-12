@@ -1,5 +1,5 @@
 // Base
-import React from 'react'
+import React, { useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -12,6 +12,9 @@ import state from '@/shared/config/store'
 
 // 3D Model
 import { pantsModel } from '@/public'
+
+// Initial coordinates
+const initialPantsLogoPosition = { x: -0.2, y: 0.8 }
 
 const Pants = () => {
 	const snap = useSnapshot(state)
@@ -29,6 +32,29 @@ const Pants = () => {
 
 	// Convert state snapshot to string for key
 	const stateString = JSON.stringify(snap)
+
+	const [pantsLogoPosition, setPantsLogoPosition] = useState(
+		initialPantsLogoPosition
+	)
+
+	const handlePointerDown = e => {
+		e.stopPropagation()
+		const handlePointerMove = e => {
+			const { movementX, movementY } = e
+			setPantsLogoPosition(prevPosition => ({
+				x: prevPosition.x + movementX * 0.0027,
+				y: prevPosition.y - movementY * 0.0027,
+			}))
+		}
+
+		const handlePointerUp = () => {
+			document.removeEventListener('mousemove', handlePointerMove)
+			document.removeEventListener('mouseup', handlePointerUp)
+		}
+
+		document.addEventListener('mousemove', handlePointerMove)
+		document.addEventListener('mouseup', handlePointerUp)
+	}
 
 	return (
 		<group key={stateString}>
@@ -50,15 +76,15 @@ const Pants = () => {
 						map={fullTexture}
 					/>
 				)}
-
 				{snap.isLogoTexture && (
 					<Decal
-						position={[-0.2, 0.8, 0.2]}
+						position={[pantsLogoPosition.x, pantsLogoPosition.y, 0.2]}
 						rotation={[0, 0, 0]}
 						scale={0.2}
 						map={logoTexture}
 						depthTest={false}
 						depthWrite={true}
+						onPointerDown={handlePointerDown}
 					/>
 				)}
 			</mesh>
