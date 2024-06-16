@@ -64,7 +64,8 @@ const Underpants = () => {
 				material-roughness={1}
 				dispose={null}
 				scale={[0.06, 0.04, 0.06]}
-				rotation={[0.15, 6.3, 0]}
+				rotation={[0.1, 6.3, 0]}
+				position={[0.02, -0.03, 0]}
 			>
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (

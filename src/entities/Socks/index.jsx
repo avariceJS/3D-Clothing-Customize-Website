@@ -68,7 +68,7 @@ const Socks = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				scale={[1, 1, 1]}
-				position={[0, -0.15, 0]}
+				position={[0, -0.2, 0]}
 				dispose={null}
 			>
 				<meshStandardMaterial color={snap.color} />
@@ -97,7 +97,7 @@ const Socks = () => {
 				geometry={nodes['sock-right-b_medias001_0'].geometry}
 				material={materials.lambert1}
 				material-roughness={1}
-				position={[0, -0.15, 0]}
+				position={[0, -0.2, 0]}
 				scale={[1, 1, 1]}
 				dispose={null}
 			>

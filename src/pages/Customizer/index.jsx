@@ -29,7 +29,7 @@ import {
 import ProductDisplay from '@/widgets/ProductDisplay'
 
 // Icons
-import { leftArrow } from '@/public'
+import { leftArrowIcon } from '@/public'
 
 const Customizer = () => {
 	const snap = useSnapshot(state)
@@ -218,7 +218,7 @@ const Customizer = () => {
 						{...fadeAnimation}
 					>
 						<CustomButton
-							image={leftArrow}
+							image={leftArrowIcon}
 							type='filled'
 							title='Назад'
 							imagePosition='left'

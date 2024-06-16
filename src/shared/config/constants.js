@@ -1,33 +1,38 @@
 // Icons
 import {
-	fileIcon,
-	logoShirt,
-	sizeShirts,
-	stylishShirt,
+	stylishShirtIcon,
+	fileSelection,
+	logoShirtIcon,
+	sizePicker,
+	hoodieIcon,
+	boxerIcon,
+	pantsIcon,
+	socksIcon,
+	shirtIcon,
 	swatch,
-	boxerIcons,
-	pantsIcons,
-	socksIcons,
-	shirtIcons,
 } from '@/public/index.js'
 
 // Array representing different types of clothing and their icons
 export const ClothesChoice = [
 	{
 		name: 'underpants',
-		icon: boxerIcons,
+		icon: boxerIcon,
 	},
 	{
 		name: 'pants',
-		icon: pantsIcons,
+		icon: pantsIcon,
 	},
 	{
 		name: 'socks',
-		icon: socksIcons,
+		icon: socksIcon,
 	},
 	{
 		name: 'shirt',
-		icon: shirtIcons,
+		icon: shirtIcon,
+	},
+	{
+		name: 'hoodie',
+		icon: hoodieIcon,
 	},
 ]
 
@@ -39,11 +44,11 @@ export const EditorTabs = [
 	},
 	{
 		name: 'filepicker',
-		icon: fileIcon,
+		icon: fileSelection,
 	},
 	{
 		name: 'sizepicker',
-		icon: sizeShirts,
+		icon: sizePicker,
 	},
 ]
 
@@ -51,11 +56,11 @@ export const EditorTabs = [
 export const FilterTabs = [
 	{
 		name: 'logoShirt',
-		icon: logoShirt,
+		icon: logoShirtIcon,
 	},
 	{
 		name: 'stylishShirt',
-		icon: stylishShirt,
+		icon: stylishShirtIcon,
 	},
 ]
 

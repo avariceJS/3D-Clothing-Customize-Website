@@ -14,7 +14,7 @@ import state from '@/shared/config/store'
 import { pantsModel } from '@/public'
 
 // Initial coordinates
-const initialPantsLogoPosition = { x: -0.2, y: 0.8 }
+const initialPantsLogoPosition = { x: -0.185, y: 0.8 }
 
 const Pants = () => {
 	const snap = useSnapshot(state)
@@ -62,7 +62,7 @@ const Pants = () => {
 				geometry={nodes.defaultMaterial.geometry}
 				material={materials.lambert1}
 				rotation={[0, 0, 0]}
-				position={[0, -0.08, 0]}
+				position={[0.01, -0.13, 0]}
 				material-roughness={1}
 				scale={[0.3, 0.3, 0.3]}
 				dispose={null}

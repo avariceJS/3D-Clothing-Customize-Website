@@ -1,42 +1,46 @@
 // Image
-import fileIcon from './image/file.png'
 import MarkFormelle from './image/markformelle.png'
-import sizeShirts from './image/sizepicker.png'
+import sizePicker from './image/sizePicker.png'
+import fileSelection from './image/fileSelection.png'
 import swatch from './image/swatch.png'
 
 // Icons
-import boxerIcons from './icons/boxer_icons.png'
-import download from './icons/download_icons.png'
-import leftArrow from './icons/leftArrow_icons.png'
-import logoShirt from './icons/logoShirt_icons.png'
-import pantsIcons from './icons/pants_icons.png'
-import stylishShirt from './icons/printShirt_icons.png'
-import rightArrow from './icons/rightArrow_icons.png'
-import socksIcons from './icons/socks_icons.png'
-import shirtIcons from './icons/t-shirt_icons.png'
+import stylishShirtIcon from './icons/printShirt_icon.png'
+import rightArrowIcon from './icons/rightArrow_icon.png'
+import leftArrowIcon from './icons/leftArrow_icon.png'
+import logoShirtIcon from './icons/logoShirt_icon.png'
+import downloadIcon from './icons/download_icon.png'
+import hoodieIcon from './icons/hoodie_icon.png'
+import shirtIcon from './icons/t-shirt_icon.png'
+import boxerIcon from './icons/boxer_icon.png'
+import pantsIcon from './icons/pants_icon.png'
+import socksIcon from './icons/socks_icon.png'
 
 // 3D Models
+import hoodieModel from './3dModel/hoodie.glb'
 import boxerModel from './3dModel/boxer.glb'
 import pantsModel from './3dModel/pants.glb'
 import shirtModel from './3dModel/shirt.glb'
 import socksModel from './3dModel/socks.glb'
 
 export {
-	fileIcon,
+	stylishShirtIcon,
+	rightArrowIcon,
+	leftArrowIcon,
+	logoShirtIcon,
+	downloadIcon,
+	hoodieIcon,
+	boxerIcon,
+	pantsIcon,
+	socksIcon,
+	shirtIcon,
+	fileSelection,
 	MarkFormelle,
+	sizePicker,
 	swatch,
-	logoShirt,
-	stylishShirt,
-	sizeShirts,
-	boxerIcons,
-	pantsIcons,
-	socksIcons,
-	shirtIcons,
-	rightArrow,
-	leftArrow,
-	download,
 	boxerModel,
 	pantsModel,
 	shirtModel,
-	socksModel
+	socksModel,
+	hoodieModel,
 }

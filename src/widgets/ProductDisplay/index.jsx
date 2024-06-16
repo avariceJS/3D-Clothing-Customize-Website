@@ -15,6 +15,7 @@ import Shirt from '@/entities/Shirt'
 import Socks from '@/entities/Socks'
 import Underpants from '@/entities/Underpants'
 import Pants from '@/entities/Pants'
+import Hoodie from '@/entities/Hoodie'
 
 const ProductDisplay = () => {
 	// Initialize state with currentClothing from global state or default to 'shirt'
@@ -42,6 +43,8 @@ const ProductDisplay = () => {
 				return <Underpants />
 			case 'pants':
 				return <Pants />
+			case 'hoodie':
+				return <Hoodie />
 			default:
 				return <Shirt />
 		}

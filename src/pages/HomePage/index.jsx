@@ -8,7 +8,9 @@ import { useSnapshot } from 'valtio'
 import CustomButton from '@/features/CustomButton'
 
 // Icons
-import { rightArrow } from '@/public'
+import { rightArrowIcon } from '@/public'
+
+// Image
 import { MarkFormelle } from '@/public'
 
 // Shared -> Config
@@ -62,7 +64,7 @@ const HomePage = () => {
 								title='Редактировать'
 								handleClick={handleEditClick}
 								customStyles='w-fit px-20 py-6 font-bold text-lg'
-								image={rightArrow}
+								image={rightArrowIcon}
 								imagePosition='right'
 							/>
 						</motion.div>

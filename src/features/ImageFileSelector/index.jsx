@@ -5,7 +5,7 @@ import React from 'react'
 import CustomButton from '@/features/CustomButton'
 
 // Icons
-import { download } from '@/public'
+import { downloadIcon } from '@/public'
 
 const ImageFileSelector = ({ file, setFile, readFile, tabWidth }) => {
 	
@@ -23,7 +23,7 @@ const ImageFileSelector = ({ file, setFile, readFile, tabWidth }) => {
 				/>
 				<label htmlFor='file-upload' className='filepicker-label'>
 					Загрузить
-					<img src={download} alt='logo' className='w-4 h-4 ml-[5px]' />
+					<img src={downloadIcon} alt='logo' className='w-4 h-4 ml-[5px]' />
 				</label>
 				<p className='mt-2 text-gray-700 text-[13px] truncate'>
 					{file === '' ? 'Файл не выбран' : file.name}
