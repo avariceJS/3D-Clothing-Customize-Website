@@ -1,5 +1,5 @@
 // Base
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -56,6 +56,29 @@ const Underpants = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const getSizeScale = size => {
+		const sizeMap = {
+			XXS: 0.041,
+			XS: 0.0425,
+			S: 0.044,
+			M: 0.0455,
+			L: 0.047,
+			XL: 0.0485,
+			XXL: 0.05,
+			'3XL': 0.0565,
+			'4XL': 0.058,
+			'5XL': 0.0595,
+			'6XL': 0.061,
+			'7XL': 0.0625,
+		}
+		return sizeMap[size] || 1.0
+	}
+
+	const sizeScale = useMemo(
+		() => getSizeScale(snap.currentSize),
+		[snap.currentSize]
+	)
+
 	return (
 		<group key={stateString}>
 			<mesh
@@ -63,7 +86,7 @@ const Underpants = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				scale={[0.06, 0.04, 0.06]}
+				scale={[sizeScale, 0.045, sizeScale]}
 				rotation={[0.1, 6.3, 0]}
 				position={[0.02, -0.03, 0]}
 			>

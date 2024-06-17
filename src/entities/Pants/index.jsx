@@ -1,5 +1,5 @@
 // Base
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -56,6 +56,29 @@ const Pants = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const getSizeScale = size => {
+		const sizeMap = {
+			XXS: 0.24,
+			XS: 0.25,
+			S: 0.26,
+			M: 0.27,
+			L: 0.28,
+			XL: 0.29,
+			XXL: 0.3,
+			'3XL': 0.31,
+			'4XL': 0.32,
+			'5XL': 0.33,
+			'6XL': 0.34,
+			'7XL': 0.35,
+		}
+		return sizeMap[size] || 1.0
+	}
+
+	const sizeScale = useMemo(
+		() => getSizeScale(snap.currentSize),
+		[snap.currentSize]
+	)
+
 	return (
 		<group key={stateString}>
 			<mesh
@@ -64,7 +87,7 @@ const Pants = () => {
 				rotation={[0, 0, 0]}
 				position={[0.01, -0.13, 0]}
 				material-roughness={1}
-				scale={[0.3, 0.3, 0.3]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 				dispose={null}
 			>
 				<meshStandardMaterial color={snap.color} />

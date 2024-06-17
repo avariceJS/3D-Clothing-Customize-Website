@@ -1,6 +1,9 @@
 // Base
 import React, { useState } from 'react'
 
+// State
+import state from '@/shared/config/store'
+
 // Array of size options
 const sizes = [
 	{ name: 'XXS', range: '40-42' },
@@ -17,13 +20,13 @@ const sizes = [
 	{ name: '7XL', range: '76-78' },
 ]
 
-const SizePicker = ({ readFile, tabWidth }) => {
-	const [activeButton, setActiveButton] = useState(null)
+const SizePicker = ({ tabWidth }) => {
+	const [activeButton, setActiveButton] = useState(state.currentSize)
 
 	// Handle button click to select size
 	const handleButtonClick = name => {
 		setActiveButton(name === activeButton ? null : name)
-		readFile(name)
+		state.currentSize = name
 	}
 
 	// Calculate modal width based on tab width
@@ -42,13 +45,11 @@ const SizePicker = ({ readFile, tabWidth }) => {
 						style={{ width: tabWidth > 373 ? '96px' : `${buttonWidth}px` }}
 					>
 						<button
-							className={`
-                                text-xs w-full h-full flex items-center mr-5 justify-center border border-gray-300 rounded
-                                ${
-																	activeButton === size.name
-																		? 'border-red-400 text-red-500'
-																		: 'hover:border-blue-600'
-																}
+							className={`text-xs w-full h-full flex items-center mr-5 justify-center border border-gray-300 rounded ${
+								activeButton === size.name
+									? 'border-red-400 text-red-500'
+									: 'hover:border-blue-600'
+							}
                             `}
 							onClick={() => handleButtonClick(size.name)}
 						>

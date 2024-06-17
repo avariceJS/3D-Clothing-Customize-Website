@@ -1,5 +1,5 @@
 // Base
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -13,7 +13,7 @@ import state from '@/shared/config/store'
 // 3D Model
 import { hoodieModel } from '@/public'
 
-// Initial coordinates 
+// Initial coordinates
 const initialHoodieLogoPosition = { x: 0.009, y: 1.42 }
 
 const Hoodie = () => {
@@ -57,6 +57,29 @@ const Hoodie = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const getSizeScale = size => {
+		const sizeMap = {
+			XXS: 0.59,
+			XS: 0.6,
+			S: 0.61,
+			M: 0.62,
+			L: 0.63,
+			XL: 0.64,
+			XXL: 0.65,
+			'3XL': 0.66,
+			'4XL': 0.67,
+			'5XL': 0.68,
+			'6XL': 0.69,
+			'7XL': 0.7,
+		}
+		return sizeMap[size] || 1.0
+	}
+
+	const sizeScale = useMemo(
+		() => getSizeScale(snap.currentSize),
+		[snap.currentSize]
+	)
+
 	return (
 		<group key={stateString}>
 			<mesh
@@ -64,11 +87,12 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
-					<Decal 
+					<Decal
 						position={[0.009, 1.29, 0]}
 						rotation={[0, 0, 0]}
 						scale={0.33}
@@ -92,7 +116,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -101,7 +126,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -110,7 +136,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -119,7 +146,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -129,7 +157,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -138,7 +167,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -147,7 +177,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -156,7 +187,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -165,7 +197,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -174,7 +207,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -183,7 +217,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, -0.01, 0]}
+				position={[0.035, 0.12, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>

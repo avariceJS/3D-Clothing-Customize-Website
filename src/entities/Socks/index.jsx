@@ -1,5 +1,5 @@
 // Base
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -60,6 +60,29 @@ const Socks = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const getSizeScale = size => {
+		const sizeMap = {
+			XXS: 0.75,
+			XS: 0.8,
+			S: 0.85,
+			M: 0.9,
+			L: 0.95,
+			XL: 1,
+			XXL: 1.05,
+			'3XL': 1.1,
+			'4XL': 1.15,
+			'5XL': 1.2,
+			'6XL': 1.25,
+			'7XL': 1.3,
+		}
+		return sizeMap[size] || 1.0
+	}
+
+	const sizeScale = useMemo(
+		() => getSizeScale(snap.currentSize),
+		[snap.currentSize]
+	)
+
 	return (
 		<group key={stateString}>
 			{/* Left sock */}
@@ -67,9 +90,10 @@ const Socks = () => {
 				geometry={nodes['sock-left-b_medias_0'].geometry}
 				material={materials.lambert1}
 				material-roughness={1}
-				scale={[1, 1, 1]}
-				position={[0, -0.2, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
+				position={[0.02, -0.4, 0]}
 				dispose={null}
+				rotation={[0, 0.05, 0]}
 			>
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
@@ -97,9 +121,10 @@ const Socks = () => {
 				geometry={nodes['sock-right-b_medias001_0'].geometry}
 				material={materials.lambert1}
 				material-roughness={1}
-				position={[0, -0.2, 0]}
-				scale={[1, 1, 1]}
+				position={[0.02, -0.4, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 				dispose={null}
+				rotation={[0, 0.05, 0]}
 			>
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (

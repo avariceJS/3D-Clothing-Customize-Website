@@ -1,5 +1,5 @@
 // Base
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 // 3D Graphics
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
@@ -56,6 +56,29 @@ const Shirt = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const getSizeScale = size => {
+		const sizeMap = {
+			XXS: 0.55,
+			XS: 0.6,
+			S: 0.65,
+			M: 0.7,
+			L: 0.75,
+			XL: 0.8,
+			XXL: 0.85,
+			'3XL': 0.9,
+			'4XL': 0.95,
+			'5XL': 1,
+			'6XL': 1.15,
+			'7XL': 1.2,
+		}
+		return sizeMap[size] || 1.0
+	}
+
+	const sizeScale = useMemo(
+		() => getSizeScale(snap.currentSize),
+		[snap.currentSize]
+	)
+
 	return (
 		<group key={stateString}>
 			<mesh
@@ -64,6 +87,7 @@ const Shirt = () => {
 				material-roughness={1}
 				dispose={null}
 				position={[0.035, -0.01, 0]}
+				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
