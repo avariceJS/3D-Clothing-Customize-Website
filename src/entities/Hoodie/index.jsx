@@ -15,6 +15,7 @@ import { hoodieModel } from '@/public'
 
 // Initial coordinates
 const initialHoodieLogoPosition = { x: 0.009, y: 1.42 }
+const initialBackLogoPosition = { x: 0.009, y: 1.42 }
 
 const Hoodie = () => {
 	const snap = useSnapshot(state)
@@ -57,28 +58,61 @@ const Hoodie = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const [backLogoPosition, setBackLogoPosition] = useState(
+		initialBackLogoPosition
+	)
+
+	const handlePointerDownBack = e => {
+		e.stopPropagation()
+		const handlePointerMove = e => {
+			const { movementX, movementY } = e
+			setBackLogoPosition(prevPosition => ({
+				x: prevPosition.x - movementX * 0.001,
+				y: prevPosition.y - movementY * 0.001,
+			}))
+		}
+
+		const handlePointerUp = () => {
+			document.removeEventListener('mousemove', handlePointerMove)
+			document.removeEventListener('mouseup', handlePointerUp)
+		}
+
+		document.addEventListener('mousemove', handlePointerMove)
+		document.addEventListener('mouseup', handlePointerUp)
+	}
+
 	const getSizeScale = size => {
 		const sizeMap = {
-			XXS: 0.59,
-			XS: 0.6,
-			S: 0.61,
-			M: 0.62,
-			L: 0.63,
-			XL: 0.64,
-			XXL: 0.65,
-			'3XL': 0.66,
-			'4XL': 0.67,
-			'5XL': 0.68,
-			'6XL': 0.69,
-			'7XL': 0.7,
+			XXS: 0.65,
+			XS: 0.67,
+			S: 0.69,
+			M: 0.71,
+			L: 0.73,
+			XL: 0.75,
+			XXL: 0.77,
+			'3XL': 0.79,
+			'4XL': 0.81,
+			'5XL': 0.83,
+			'6XL': 0.85,
+			'7XL': 0.87,
 		}
 		return sizeMap[size] || 1.0
 	}
-
 	const sizeScale = useMemo(
 		() => getSizeScale(snap.currentSize),
 		[snap.currentSize]
 	)
+	console.log(sizeScale)
+
+	const rotation = snap.currentRotate ? [0.1, -3.1, 0] : [0, 0, 0]
+
+	const getPosition = sizeScale => {
+		const basePosition = [0.035, 0.9, 0]
+		const yOffset = sizeScale * -1.3
+		return [basePosition[0], basePosition[1] + yOffset, basePosition[2]]
+	}
+
+	const position = getPosition(sizeScale)
 
 	return (
 		<group key={stateString}>
@@ -87,7 +121,8 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				rotation={rotation}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
 			>
 				<meshStandardMaterial color={snap.color} />
@@ -95,7 +130,7 @@ const Hoodie = () => {
 					<Decal
 						position={[0.009, 1.29, 0]}
 						rotation={[0, 0, 0]}
-						scale={0.33}
+						scale={0.64}
 						map={fullTexture}
 					/>
 				)}
@@ -105,8 +140,8 @@ const Hoodie = () => {
 						rotation={[0, 0, 0]}
 						scale={0.12}
 						map={logoTexture}
-						depthTest={false}
-						depthWrite={true}
+						depthTest={true}
+						depthWrite={false}
 						onPointerDown={handlePointerDown}
 					/>
 				)}
@@ -116,8 +151,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -126,8 +162,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -136,8 +173,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -146,8 +184,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -157,8 +196,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -167,18 +207,31 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
+				{snap.isBackLogoTexture && (
+					<Decal
+						position={[backLogoPosition.x, backLogoPosition.y, -0.2]}
+						rotation={[0, Math.PI, 0]}
+						scale={0.15}
+						map={logoTexture}
+						depthTest={true}
+						depthWrite={false}
+						onPointerDown={handlePointerDownBack}
+					/>
+				)}
 			</mesh>
 			<mesh
 				geometry={nodes.Object_13.geometry}
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -187,8 +240,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -197,8 +251,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -207,8 +262,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>
@@ -217,8 +273,9 @@ const Hoodie = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
-				position={[0.035, 0.12, 0]}
+				position={position}
 				scale={[sizeScale, sizeScale, sizeScale]}
+				rotation={rotation}
 			>
 				<meshStandardMaterial color={snap.color} />
 			</mesh>

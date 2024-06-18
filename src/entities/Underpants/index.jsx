@@ -15,7 +15,7 @@ import { boxerModel } from '@/public'
 
 // Initial coordinates
 const initialUnderpantsLogoPosition = { x: -1.12, y: 0 }
-
+const initialBackLogoPosition = { x: 0.85, y: 0.5 }
 const Underpants = () => {
 	const snap = useSnapshot(state)
 
@@ -37,13 +37,36 @@ const Underpants = () => {
 		initialUnderpantsLogoPosition
 	)
 
+	const [backLogoPosition, setBackLogoPosition] = useState(
+		initialBackLogoPosition
+	)
+
 	const handlePointerDown = e => {
 		e.stopPropagation()
 		const handlePointerMove = e => {
 			const { movementX, movementY } = e
 			setUnderpantsLogoPosition(prevPosition => ({
-				x: prevPosition.x + movementX * 0.016,
-				y: prevPosition.y - movementY * 0.026,
+				x: prevPosition.x + movementX * 0.02,
+				y: prevPosition.y - movementY * 0.02,
+			}))
+		}
+
+		const handlePointerUp = () => {
+			document.removeEventListener('mousemove', handlePointerMove)
+			document.removeEventListener('mouseup', handlePointerUp)
+		}
+
+		document.addEventListener('mousemove', handlePointerMove)
+		document.addEventListener('mouseup', handlePointerUp)
+	}
+
+	const handlePointerDownBack = e => {
+		e.stopPropagation()
+		const handlePointerMove = e => {
+			const { movementX, movementY } = e
+			setBackLogoPosition(prevPosition => ({
+				x: prevPosition.x - movementX * 0.02,
+				y: prevPosition.y - movementY * 0.02,
 			}))
 		}
 
@@ -79,6 +102,8 @@ const Underpants = () => {
 		[snap.currentSize]
 	)
 
+	const rotation = snap.currentRotate ? [0.1, 6.3, 0] : [0.1, -3.14, 0]
+
 	return (
 		<group key={stateString}>
 			<mesh
@@ -87,7 +112,7 @@ const Underpants = () => {
 				material-roughness={1}
 				dispose={null}
 				scale={[sizeScale, 0.045, sizeScale]}
-				rotation={[0.1, 6.3, 0]}
+				rotation={rotation}
 				position={[0.02, -0.03, 0]}
 			>
 				<meshStandardMaterial color={snap.color} />
@@ -99,15 +124,26 @@ const Underpants = () => {
 						map={fullTexture}
 					/>
 				)}
-				{snap.isLogoTexture && (
+				{snap.isBackLogoTexture && (
 					<Decal
-						position={[underpantsLogoPosition.x, underpantsLogoPosition.y, 1.1]}
+						position={[underpantsLogoPosition.x, underpantsLogoPosition.y, 1.4]}
 						rotation={[0, 0, 0]}
-						scale={1.1}
+						scale={1.5}
 						map={logoTexture}
 						depthTest={false}
 						depthWrite={true}
 						onPointerDown={handlePointerDown}
+					/>
+				)}
+				{snap.isLogoTexture && (
+					<Decal
+						position={[backLogoPosition.x, backLogoPosition.y, -0.85]}
+						rotation={[0, Math.PI, 0]}
+						scale={1.4}
+						map={logoTexture}
+						depthTest={false}
+						depthWrite={true}
+						onPointerDown={handlePointerDownBack}
 					/>
 				)}
 			</mesh>

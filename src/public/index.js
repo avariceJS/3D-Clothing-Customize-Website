@@ -9,12 +9,14 @@ import stylishShirtIcon from './icons/printShirt_icon.png'
 import rightArrowIcon from './icons/rightArrow_icon.png'
 import leftArrowIcon from './icons/leftArrow_icon.png'
 import logoShirtIcon from './icons/logoShirt_icon.png'
+import backLogoIcon from './icons/backLogo_icon.png'
 import downloadIcon from './icons/download_icon.png'
 import hoodieIcon from './icons/hoodie_icon.png'
 import shirtIcon from './icons/t-shirt_icon.png'
 import boxerIcon from './icons/boxer_icon.png'
 import pantsIcon from './icons/pants_icon.png'
 import socksIcon from './icons/socks_icon.png'
+import rotationIcon  from './icons/rotation_icon.png'
 
 // 3D Models
 import hoodieModel from './3dModel/hoodie.glb'
@@ -29,6 +31,8 @@ export {
 	leftArrowIcon,
 	logoShirtIcon,
 	downloadIcon,
+	backLogoIcon,
+	rotationIcon,
 	hoodieIcon,
 	boxerIcon,
 	pantsIcon,

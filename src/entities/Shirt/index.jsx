@@ -15,6 +15,7 @@ import { shirtModel } from '@/public'
 
 // Initial coordinates
 const initialShirtLogoPosition = { x: 0, y: 0.04 }
+const initialBackLogoPosition = { x: 0, y: 0.04 }
 
 const Shirt = () => {
 	const snap = useSnapshot(state)
@@ -36,8 +37,11 @@ const Shirt = () => {
 	const [shirtLogoPosition, setShirtLogoPosition] = useState(
 		initialShirtLogoPosition
 	)
+	const [backLogoPosition, setBackLogoPosition] = useState(
+		initialBackLogoPosition
+	)
 
-	const handlePointerDown = e => {
+	const handlePointerDownFront = e => {
 		e.stopPropagation()
 		const handlePointerMove = e => {
 			const { movementX, movementY } = e
@@ -56,20 +60,39 @@ const Shirt = () => {
 		document.addEventListener('mouseup', handlePointerUp)
 	}
 
+	const handlePointerDownBack = e => {
+		e.stopPropagation()
+		const handlePointerMove = e => {
+			const { movementX, movementY } = e
+			setBackLogoPosition(prevPosition => ({
+				x: prevPosition.x - movementX * 0.00085,
+				y: prevPosition.y - movementY * 0.00085,
+			}))
+		}
+
+		const handlePointerUp = () => {
+			document.removeEventListener('mousemove', handlePointerMove)
+			document.removeEventListener('mouseup', handlePointerUp)
+		}
+
+		document.addEventListener('mousemove', handlePointerMove)
+		document.addEventListener('mouseup', handlePointerUp)
+	}
+
 	const getSizeScale = size => {
 		const sizeMap = {
-			XXS: 0.55,
-			XS: 0.6,
-			S: 0.65,
-			M: 0.7,
-			L: 0.75,
-			XL: 0.8,
-			XXL: 0.85,
-			'3XL': 0.9,
-			'4XL': 0.95,
-			'5XL': 1,
-			'6XL': 1.15,
-			'7XL': 1.2,
+			XXS: 0.75,
+			XS: 0.78,
+			S: 0.81,
+			M: 0.84,
+			L: 0.87,
+			XL: 0.9,
+			XXL: 0.93,
+			'3XL': 0.96,
+			'4XL': 0.99,
+			'5XL': 1.02,
+			'6XL': 1.05,
+			'7XL': 1.08,
 		}
 		return sizeMap[size] || 1.0
 	}
@@ -79,6 +102,8 @@ const Shirt = () => {
 		[snap.currentSize]
 	)
 
+	const rotation = snap.currentRotate ? [0, 3.15, 0] : [0, 0.05, 0]
+
 	return (
 		<group key={stateString}>
 			<mesh
@@ -86,6 +111,7 @@ const Shirt = () => {
 				material={materials.lambert1}
 				material-roughness={1}
 				dispose={null}
+				rotation={rotation}
 				position={[0.035, -0.01, 0]}
 				scale={[sizeScale, sizeScale, sizeScale]}
 			>
@@ -106,7 +132,18 @@ const Shirt = () => {
 						map={logoTexture}
 						depthTest={false}
 						depthWrite={true}
-						onPointerDown={handlePointerDown}
+						onPointerDown={handlePointerDownFront}
+					/>
+				)}
+				{snap.isBackLogoTexture && (
+					<Decal
+						position={[backLogoPosition.x, backLogoPosition.y, -0.08]}
+						rotation={[0, Math.PI, 0]}
+						scale={0.15}
+						map={logoTexture}
+						depthTest={false}
+						depthWrite={true}
+						onPointerDown={handlePointerDownBack}
 					/>
 				)}
 			</mesh>

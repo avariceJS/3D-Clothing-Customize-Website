@@ -40,6 +40,7 @@ const Customizer = () => {
 	const [activeEditorTab, setActiveEditorTab] = useState('')
 	const [activeFilterTab, setActiveFilterTab] = useState({
 		logoShirt: true,
+		backLogo: false,
 		stylishShirt: false,
 	})
 
@@ -152,11 +153,18 @@ const Customizer = () => {
 			case 'logoShirt':
 				state.isLogoTexture = !activeFilterTab[tabName]
 				break
+			case 'backLogo':
+				state.isBackLogoTexture = !activeFilterTab[tabName]
+				break
+			case 'rotation':
+				state.currentRotate = !snap.currentRotate
+				break
 			case 'stylishShirt':
 				state.isFullTexture = !activeFilterTab[tabName]
 				break
 			default:
 				state.isLogoTexture = true
+				state.isBackLogoTexture = false
 				state.isFullTexture = false
 				break
 		}
@@ -184,6 +192,9 @@ const Customizer = () => {
 		window.location.reload()
 	}
 
+	const handleRotate = () => {
+		state.currentRotate = !snap.currentRotate
+	}
 	return (
 		<AnimatePresence>
 			{!snap.intro && (

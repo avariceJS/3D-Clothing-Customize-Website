@@ -15,6 +15,7 @@ import { pantsModel } from '@/public'
 
 // Initial coordinates
 const initialPantsLogoPosition = { x: -0.185, y: 0.8 }
+const initialBackLogoPosition = { x: 0.12, y: 0.8 }
 
 const Pants = () => {
 	const snap = useSnapshot(state)
@@ -42,8 +43,31 @@ const Pants = () => {
 		const handlePointerMove = e => {
 			const { movementX, movementY } = e
 			setPantsLogoPosition(prevPosition => ({
-				x: prevPosition.x + movementX * 0.0027,
-				y: prevPosition.y - movementY * 0.0027,
+				x: prevPosition.x + movementX * 0.0025,
+				y: prevPosition.y - movementY * 0.0025,
+			}))
+		}
+
+		const handlePointerUp = () => {
+			document.removeEventListener('mousemove', handlePointerMove)
+			document.removeEventListener('mouseup', handlePointerUp)
+		}
+
+		document.addEventListener('mousemove', handlePointerMove)
+		document.addEventListener('mouseup', handlePointerUp)
+	}
+
+	const [backLogoPosition, setBackLogoPosition] = useState(
+		initialBackLogoPosition
+	)
+	
+	const handlePointerDownBack = e => {
+		e.stopPropagation()
+		const handlePointerMove = e => {
+			const { movementX, movementY } = e
+			setBackLogoPosition(prevPosition => ({
+				x: prevPosition.x - movementX * 0.0025,
+				y: prevPosition.y - movementY * 0.0025,
 			}))
 		}
 
@@ -79,12 +103,14 @@ const Pants = () => {
 		[snap.currentSize]
 	)
 
+	const rotation = snap.currentRotate ? [0, -3.14, 0] : [0, 0, 0]
+
 	return (
 		<group key={stateString}>
 			<mesh
 				geometry={nodes.defaultMaterial.geometry}
 				material={materials.lambert1}
-				rotation={[0, 0, 0]}
+				rotation={rotation}
 				position={[0.01, -0.13, 0]}
 				material-roughness={1}
 				scale={[sizeScale, sizeScale, sizeScale]}
@@ -108,6 +134,17 @@ const Pants = () => {
 						depthTest={false}
 						depthWrite={true}
 						onPointerDown={handlePointerDown}
+					/>
+				)}
+				{snap.isBackLogoTexture && (
+					<Decal
+						position={[backLogoPosition.x, backLogoPosition.y, -0.145]}
+						rotation={[0, Math.PI, 0]}
+						scale={0.2}
+						map={logoTexture}
+						depthTest={false}
+						depthWrite={true}
+						onPointerDown={handlePointerDownBack}
 					/>
 				)}
 			</mesh>

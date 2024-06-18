@@ -14,8 +14,12 @@ import state from '@/shared/config/store'
 import { socksModel } from '@/public'
 
 // Initial coordinates
-const initialLeftSockLogoPosition = { x: 0.1367, y: 0.182 }
-const initialRightSockLogoPosition = { x: -0.021, y: 0.182 }
+const initialPositions = {
+	leftFront: { x: 0.1367, y: 0.182 },
+	leftBack: { x: 0.1367, y: 0.182 },
+	rightFront: { x: -0.021, y: 0.182 },
+	rightBack: { x: -0.021, y: 0.182 },
+}
 
 const Socks = () => {
 	const snap = useSnapshot(state)
@@ -34,20 +38,20 @@ const Socks = () => {
 	// Convert state snapshot to string for key
 	const stateString = JSON.stringify(snap)
 
-	const [leftSockLogoPosition, setLeftSockLogoPosition] = useState(
-		initialLeftSockLogoPosition
-	)
-	const [rightSockLogoPosition, setRightSockLogoPosition] = useState(
-		initialRightSockLogoPosition
-	)
+	const [logoPositions, setLogoPositions] = useState(initialPositions)
 
-	const handlePointerDown = (e, setPosition) => {
+	const handlePointerDown = (e, positionKey, isBack) => {
 		e.stopPropagation()
 		const handlePointerMove = e => {
 			const { movementX, movementY } = e
-			setPosition(prevPosition => ({
-				x: prevPosition.x + movementX * 0.001,
-				y: prevPosition.y - movementY * 0.001,
+			setLogoPositions(prevPositions => ({
+				...prevPositions,
+				[positionKey]: {
+					x:
+						prevPositions[positionKey].x +
+						(isBack ? -movementX : movementX) * 0.001,
+					y: prevPositions[positionKey].y - movementY * 0.001,
+				},
 			}))
 		}
 
@@ -83,70 +87,73 @@ const Socks = () => {
 		[snap.currentSize]
 	)
 
+	const rotation = snap.currentRotate ? [0, -3.1, 0] : [0, 0.07, 0]
+	const position = snap.currentRotate ? [0.195, -0.45, 0] : [0.095, -0.45, 0]
+
+	const renderSock = (geometry, positionKeyFront, positionKeyBack) => (
+		<mesh
+			geometry={geometry}
+			material={materials.lambert1}
+			material-roughness={1}
+			position={position}
+			scale={[sizeScale, sizeScale, sizeScale]}
+			dispose={null}
+			rotation={rotation}
+		>
+			<meshStandardMaterial color={snap.color} />
+			{snap.isFullTexture && (
+				<Decal
+					position={[logoPositions[positionKeyFront].x, 0.098, 0]}
+					rotation={[0, 0, 0]}
+					scale={0.388}
+					map={fullTexture}
+				/>
+			)}
+			{snap.isLogoTexture && (
+				<Decal
+					position={[
+						logoPositions[positionKeyFront].x,
+						logoPositions[positionKeyFront].y,
+						0,
+					]}
+					rotation={[0, 0, 0]}
+					scale={0.06}
+					map={logoTexture}
+					depthTest={false}
+					depthWrite={true}
+					onPointerDown={e => handlePointerDown(e, positionKeyFront, false)}
+				/>
+			)}
+			{snap.isBackLogoTexture && (
+				<Decal
+					position={[
+						logoPositions[positionKeyBack].x,
+						logoPositions[positionKeyBack].y,
+						-0.07,
+					]}
+					rotation={[0, Math.PI, 0]}
+					scale={0.06}
+					map={logoTexture}
+					depthTest={false}
+					depthWrite={true}
+					onPointerDown={e => handlePointerDown(e, positionKeyBack, true)}
+				/>
+			)}
+		</mesh>
+	)
+
 	return (
 		<group key={stateString}>
-			{/* Left sock */}
-			<mesh
-				geometry={nodes['sock-left-b_medias_0'].geometry}
-				material={materials.lambert1}
-				material-roughness={1}
-				scale={[sizeScale, sizeScale, sizeScale]}
-				position={[0.02, -0.4, 0]}
-				dispose={null}
-				rotation={[0, 0.05, 0]}
-			>
-				<meshStandardMaterial color={snap.color} />
-				{snap.isFullTexture && (
-					<Decal
-						position={[0.134, 0.098, 0]}
-						rotation={[0, 0, 0]}
-						scale={0.388}
-						map={fullTexture}
-					/>
-				)}
-				{snap.isLogoTexture && (
-					<Decal
-						position={[leftSockLogoPosition.x, leftSockLogoPosition.y, 0]}
-						rotation={[0, 0, 0]}
-						scale={0.06}
-						map={logoTexture}
-						depthTest={false}
-						depthWrite={true}
-						onPointerDown={e => handlePointerDown(e, setLeftSockLogoPosition)}
-					/>
-				)}
-			</mesh>
-			{/* Right sock */}
-			<mesh
-				geometry={nodes['sock-right-b_medias001_0'].geometry}
-				material={materials.lambert1}
-				material-roughness={1}
-				position={[0.02, -0.4, 0]}
-				scale={[sizeScale, sizeScale, sizeScale]}
-				dispose={null}
-				rotation={[0, 0.05, 0]}
-			>
-				<meshStandardMaterial color={snap.color} />
-				{snap.isFullTexture && (
-					<Decal
-						position={[-0.021, 0.098, 0]}
-						rotation={[0, 0, 0]}
-						scale={0.388}
-						map={fullTexture}
-					/>
-				)}
-				{snap.isLogoTexture && (
-					<Decal
-						position={[rightSockLogoPosition.x, rightSockLogoPosition.y, 0]}
-						rotation={[0, 0, 0]}
-						scale={0.06}
-						map={logoTexture}
-						depthTest={false}
-						depthWrite={true}
-						onPointerDown={e => handlePointerDown(e, setRightSockLogoPosition)}
-					/>
-				)}
-			</mesh>
+			{renderSock(
+				nodes['sock-left-b_medias_0'].geometry,
+				'leftFront',
+				'leftBack'
+			)}
+			{renderSock(
+				nodes['sock-right-b_medias001_0'].geometry,
+				'rightFront',
+				'rightBack'
+			)}
 		</group>
 	)
 }

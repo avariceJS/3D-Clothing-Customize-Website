@@ -3,6 +3,8 @@ import {
 	stylishShirtIcon,
 	fileSelection,
 	logoShirtIcon,
+	backLogoIcon,
+	rotationIcon,
 	sizePicker,
 	hoodieIcon,
 	boxerIcon,
@@ -61,6 +63,14 @@ export const FilterTabs = [
 	{
 		name: 'stylishShirt',
 		icon: stylishShirtIcon,
+	},
+	{
+		name: 'backLogo',
+		icon: backLogoIcon,
+	},
+	{
+		name: 'rotation',
+		icon: rotationIcon,
 	},
 ]
 
