@@ -140,7 +140,7 @@ const Hoodie = () => {
 						rotation={[0, 0, 0]}
 						scale={0.12}
 						map={logoTexture}
-						depthTest={true}
+						depthTest={false}
 						depthWrite={false}
 						onPointerDown={handlePointerDown}
 					/>
