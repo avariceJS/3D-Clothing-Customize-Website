@@ -43,7 +43,7 @@ html {
 }
 
 .editortabs-container {
-	@apply glassmorphism w-96 border-[2px] rounded-lg flex flex-shrink justify-center items-center py-4 gap-4;
+	@apply glassmorphism w-96 border-[2px] rounded-lg flex flex-shrink justify-center items-center py-4 gap-4 relative;
 }
 
 .filtertabs-container {
@@ -65,10 +65,6 @@ html {
 
 .tab-btn {
 	@apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
-}
-
-.editortabs-container {
-	position: relative;
 }
 
 .resizer {

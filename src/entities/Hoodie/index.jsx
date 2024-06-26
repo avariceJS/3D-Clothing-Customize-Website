@@ -128,9 +128,9 @@ const Hoodie = () => {
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
 					<Decal
-						position={[0.009, 1.29, 0]}
+						position={[0.02, 1.273, 0.1]}
 						rotation={[0, 0, 0]}
-						scale={0.64}
+						scale={0.5488}
 						map={fullTexture}
 					/>
 				)}

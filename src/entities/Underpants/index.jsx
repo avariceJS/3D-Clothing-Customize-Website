@@ -118,9 +118,9 @@ const Underpants = () => {
 				<meshStandardMaterial color={snap.color} />
 				{snap.isFullTexture && (
 					<Decal
-						position={[0.17, -0.7, 1.8]}
-						rotation={[0, 0, 0]}
-						scale={5.2}
+						position={[-0.265, -0.7, -2.7]}
+						rotation={[0, Math.PI, 0]}
+						scale={5.3}
 						map={fullTexture}
 					/>
 				)}
